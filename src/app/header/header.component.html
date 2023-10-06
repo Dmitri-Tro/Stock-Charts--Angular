@@ -1,0 +1,18 @@
+<div class="container">
+  <h2 class="header_title">Charts</h2>
+  <nav class="nav">
+    <ul class="nav_list">
+      <li class="nav_list__item">
+        <a class="nav_list__item__link" (click)="goToViewMode()" routerLink="/view-mode"
+                routerLinkActive="active-link">View mode
+        </a>
+      </li>
+      <li class="nav_list__item">
+        <a class="nav_list__item__link" (click)="goToSettings()" routerLink="/settings"
+                routerLinkActive="active-link">Settings
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+<router-outlet></router-outlet>

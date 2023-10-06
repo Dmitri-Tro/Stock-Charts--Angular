@@ -1,0 +1,14 @@
+.modal-container {
+  text-align: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal_btn {
+  margin: 20px 30px;
+}
+
+.error-text {
+  margin-bottom: 20px;
+  color: red;
+}

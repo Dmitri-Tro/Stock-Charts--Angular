@@ -1,0 +1,17 @@
+.view-mode-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.date-form-container {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.start-date-container,
+.end-date-container {
+  width: 45%;
+  margin: 20px;
+}

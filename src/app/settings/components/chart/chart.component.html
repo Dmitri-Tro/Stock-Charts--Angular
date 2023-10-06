@@ -1,0 +1,9 @@
+<div class="container" id="chartContainer">
+  <div *ngIf="chartList.length > 0">
+    <div *ngFor="let chart of chartList">
+      <highcharts-chart class="chart" [Highcharts]="Highcharts" [options]="chart.chartOptions"></highcharts-chart>
+      <button mat-raised-button class="settings-btn" (click)="openChartSettings(chart.chartId)" [disabled]="isButtonDisabled" *ngIf="!isViewMode">Open Chart Settings</button>
+      <button mat-raised-button class="settings-btn" (click)="deleteChart(chart.chartId)" [disabled]="isButtonDisabled" *ngIf="!isViewMode">Delete Chart</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div class="modal-container">
+  <h2>Create new chart</h2>
+  <form [formGroup]="modalWindowForm">
+    <mat-form-field>
+      <input matInput formControlName="ticker" placeholder="Chart Ticker" required pattern="[a-zA-Z]+">
+    </mat-form-field>
+    <div *ngIf="modalWindowForm.get('ticker')?.hasError('required') && modalWindowForm.get('ticker')?.touched"
+         class="error-text">
+      Please enter a ticker.
+    </div>
+    <div *ngIf="modalWindowForm.get('ticker')?.hasError('pattern') && modalWindowForm.get('ticker')?.touched"
+         class="error-text">
+      Please use only Latin letters.
+    </div>
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Chart Title">
+    </mat-form-field>
+    <div class="modal-chart_type">
+      <h3>Select chart type</h3>
+      <mat-radio-group formControlName="type">
+        <mat-radio-button [value]="'line'" [checked]="modalWindowForm.get('type')?.value === 'line'"><span
+          class="modal-checkbox_title">Line Chart</span></mat-radio-button>
+        <mat-radio-button [value]="'area'" [checked]="modalWindowForm.get('type')?.value === 'area'"><span
+          class="modal-checkbox_title">Area Chart</span></mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="modal-chart_color">
+      <h3>Select chart color</h3>
+      <mat-radio-group formControlName="color">
+        <mat-radio-button [value]="'red'" [checked]="modalWindowForm.get('color')?.value === 'red'"><span
+          class="modal-checkbox_title">Red</span></mat-radio-button>
+        <mat-radio-button [value]="'blue'" [checked]="modalWindowForm.get('color')?.value === 'blue'"><span
+          class="modal-checkbox_title">Blue</span></mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </form>
+  <div class="actions">
+    <button mat-raised-button class="modal_btn" (click)="saveChartSettings()" [disabled]="modalWindowForm.invalid">
+      Save
+    </button>
+    <button mat-raised-button class="modal_btn" (click)="closeDialog()">Cancel</button>
+  </div>
+</div>

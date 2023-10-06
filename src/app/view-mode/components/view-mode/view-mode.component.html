@@ -1,0 +1,34 @@
+<div class="view-mode-container">
+  <form *ngIf="chartList.length > 0" [formGroup]="filterForm" class="date-form-container">
+    <mat-form-field class="start-date-container">
+      <input matInput
+             [matDatepicker]="startDatePicker"
+             placeholder="Start Date"
+             formControlName="startDate">
+      <mat-datepicker-toggle  matSuffix [for]="startDatePicker"
+                              [disabled]="endDatePickerOpen"
+                              (click)="startDatePickerOpen = true"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker
+                      [panelClass]="startDatePickerOptions.panelClass"
+                      [startView]="startDatePickerOptions.startView"
+                      [touchUi]="startDatePickerOptions.touchUi"
+                      (closed)="startDatePickerOpen = false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="end-date-container">
+      <input matInput
+             [matDatepicker]="endDatePicker"
+             placeholder="End Date"
+             formControlName="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"
+                             [disabled]="startDatePickerOpen"
+                             (click)="endDatePickerOpen = true"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker
+                      [panelClass]="endDatePickerOptions.panelClass"
+                      [startView]="endDatePickerOptions.startView"
+                      [touchUi]="endDatePickerOptions.touchUi"
+                      (closed)="endDatePickerOpen = false"></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button class="filter-btn" (click)="applyDateFilter()">Apply Filter</button>
+  </form>
+  <app-chart></app-chart>
+</div>
