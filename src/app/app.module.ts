@@ -9,10 +9,8 @@ import { SettingsModule } from "./settings/settings.module";
 import { ViewModeModule } from "./view-mode/view-mode.module";
 import { MatDialogModule } from "@angular/material/dialog";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { ChartDataService } from "./services/chart-data-service/chart-data.service";
 import { MatInputModule } from "@angular/material/input";
 import { MatNativeDateModule } from "@angular/material/core";
-import { LoggerService } from "./services/logger-service/logger.service";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -43,10 +41,7 @@ import {MatRadioModule} from "@angular/material/radio";
     ReactiveFormsModule,
     MatRadioModule,
   ],
-  providers: [
-    ChartDataService,
-    LoggerService
-  ],
+  providers: [],
   exports: [],
   bootstrap: [AppComponent]
 })

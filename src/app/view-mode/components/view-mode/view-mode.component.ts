@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ApiService } from "../../../services/api-service/api.service";
 import { MatDialog } from "@angular/material/dialog";
 import { SettingsComponent } from "../../../settings/components/settings.component";
@@ -10,13 +10,14 @@ import { ChartItem } from "../../../interfaces/chart.interface";
 import { ChartData } from "../../../interfaces/api.interface";
 import { ChartSettings } from "../../../interfaces/chart-settings.interface";
 import { DatePickerOptions } from "../../../interfaces/datePickerOptions.interface";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-view-mode',
   templateUrl: './view-mode.component.html',
   styleUrls: ['./view-mode.component.css'],
 })
-export class ViewModeComponent extends SettingsComponent implements OnInit {
+export class ViewModeComponent extends SettingsComponent implements OnInit, OnDestroy {
   filterForm: FormGroup;
   chartList: ChartItem[] = [];
 
@@ -48,12 +49,13 @@ export class ViewModeComponent extends SettingsComponent implements OnInit {
 
   // At page initialization accepts installed graphics and their settings (on "/settings" page)
 override ngOnInit(): void {
-    this.chartDataService.getChartSettings().subscribe((settings: ChartSettings): void => {
+      this.chartDataSubscription = this.chartDataService.getChartSettings().subscribe((settings: ChartSettings): void => {
       this.chartSettings = settings;
       this.chartList = this.chartDataService.getChartList;
       this.logger.log('In ViewModeComponent charts and charts settings received: ', this.chartList);
     });
   }
+
   startDatePickerOpen: boolean = false;
   endDatePickerOpen: boolean = false;
   // Apply date filter
@@ -73,7 +75,6 @@ override ngOnInit(): void {
       if (chart.chartData) {
         const filteredChartData: ChartData = this.chartDataService.filterChartData(
           chart.chartData,
-          chart.chartSettings,
           startDate,
           endDate
         );

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core'
   providedIn: 'root',
 })
 export class LoggerService {
-  log(message: string, data: any): void {
+  log<T>(message: string, data: T | '!'): void {
     console.log(message, data)
   }
 }

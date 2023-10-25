@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CreateNewChartComponent } from "./create-new-chart/create-new-chart.component";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { ChartSettings } from "../../interfaces/chart-settings.interface";
@@ -7,13 +7,14 @@ import { ChartData } from "../../interfaces/api.interface";
 import { ApiService } from "../../services/api-service/api.service";
 import { LoggerService } from "../../services/logger-service/logger.service";
 import * as uuid from "uuid";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit, OnDestroy {
   chartData: ChartData | null = null;
   chartId: string = '';
   isButtonDisabled: boolean = false;
@@ -23,6 +24,10 @@ export class SettingsComponent {
     type: 'line',
     color: 'blue',
   };
+
+  protected chartSettingsSubscription!: Subscription;
+  protected chartDataSubscription!: Subscription;
+  private modalWindowAfterClose!: Subscription
 
   constructor(
     public dialog: MatDialog,
@@ -34,9 +39,15 @@ export class SettingsComponent {
 
 // When we open settings page, load chart settings
   ngOnInit(): void {
-    this.chartDataService.getChartSettings().subscribe((settings: ChartSettings): void => {
+    this.chartSettingsSubscription = this.chartDataService.getChartSettings().subscribe((settings: ChartSettings): void => {
       this.chartSettings = settings;
     });
+  }
+// Unsubscribe when component destroyed
+  ngOnDestroy(): void{
+    this.chartSettingsSubscription.unsubscribe();
+    this.chartDataSubscription.unsubscribe();
+    this.modalWindowAfterClose.unsubscribe();
   }
 
   // Modal window view settings
@@ -53,7 +64,7 @@ export class SettingsComponent {
       }
     });
 
-    dialogRef.afterClosed().subscribe((result): void => {
+    this.modalWindowAfterClose = dialogRef.afterClosed().subscribe((result): void => {
       this.isButtonDisabled = false;
       if (result) {
         this.createNewChart();
@@ -63,7 +74,7 @@ export class SettingsComponent {
 
   createNewChart(): void {
     if (this.chartSettings.ticker)
-      this.apiService.getData(this.chartSettings.ticker).subscribe((response: ChartData): void => {
+      this.chartDataSubscription = this.apiService.getData(this.chartSettings.ticker).subscribe((response: ChartData): void => {
         this.chartData = response;
         this.chartDataService.setChartData(this.chartData);
         const chartSettingsCopy: ChartSettings = {...this.chartSettings};

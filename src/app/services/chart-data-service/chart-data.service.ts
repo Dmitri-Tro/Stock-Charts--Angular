@@ -44,6 +44,7 @@ export class ChartDataService {
     this.chartList[chartIndex].chartSettings = chartSettings;
     if (chartData) {
       this.chartList[chartIndex].chartData = chartData;
+    }
       let titleText: string = this.chartList[chartIndex].chartSettings.title || '';
       titleText = titleText.trim() === '' ? this.chartList[chartIndex].chartData.chart.result[0].meta.symbol : titleText;
       this.chartOptions = {
@@ -72,7 +73,6 @@ export class ChartDataService {
       this.chartOptionsSubject.next(this.chartOptions);
       this.chartList[chartIndex].chartOptions = this.chartOptions;
       this.logger.log('In ChartDataService chart options updated: ', this.chartOptions);
-    }
   }
 
   getChartSettings(): Observable<ChartSettings> {
@@ -94,9 +94,7 @@ export class ChartDataService {
 
   deleteChart(chartId: string): void {
     const index: number = this.chartList.findIndex((chart: ChartItem): boolean => chart.chartId === chartId);
-    if (index !== -1) {
       this.chartList.splice(index, 1);
-    }
     this.logger.log('Chart deleted', '!')
   }
 
@@ -106,7 +104,7 @@ export class ChartDataService {
   }
 
   // Filter data by date
-  filterChartData(chartData: ChartData, chartSettings: ChartSettings, startDate: Date, endDate: Date): ChartData {
+  filterChartData(chartData: ChartData, startDate: Date, endDate: Date): ChartData {
     // Filter timestamp and corresponding yAxis data in the range startDate - endDate
     const filteredTimestamps: number[] = [];
     const filteredYAxisData: number[] = [];
