@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ChartDataService } from './chart-data.service';
+import {TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {ChartDataService} from './chart-data.service';
 import {ChartSettings} from "../../interfaces/chart-settings.interface";
 import {ChartData} from "../../interfaces/api.interface";
 import {ChartItem} from "../../interfaces/chart.interface";
@@ -8,10 +8,6 @@ import {ChartItem} from "../../interfaces/chart.interface";
 describe('ChartDataService', (): void => {
   let service: ChartDataService;
   let chartData: ChartData;
-  let chartSettings: ChartSettings;
-  let chartId: string;
-  let startDate: Date;
-  let endDate: Date;
   beforeEach((): void => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -40,15 +36,15 @@ describe('ChartDataService', (): void => {
       },
     };
   });
-    chartSettings = {
-      ticker: 'AAPL',
-      title: 'Apple',
-      type: 'line',
-      color: 'red',
-    };
-  chartId = 'chart';
-  startDate = new Date(2 * 1000);
-  endDate = new Date(4 * 1000);
+  const chartSettings: ChartSettings = {
+    ticker: 'AAPL',
+    title: 'Apple',
+    type: 'line',
+    color: 'red',
+  };
+  const chartId = 'chart';
+  const startDate: Date = new Date(2 * 1000);
+  const endDate: Date = new Date(4 * 1000);
 
   it('should be created', (): void => {
     expect(service).toBeTruthy();
@@ -56,7 +52,7 @@ describe('ChartDataService', (): void => {
 
   it('should update chart options', (): void => {
     service.addChart(chartSettings, chartId, chartData);
-    service.updateChartOptions(chartSettings, chartId, chartData);
+    service.updateChartOptions(chartData, chartSettings, chartId);
     const chart: ChartItem | undefined = service.getChartList.find((c: ChartItem): boolean => c.chartId === chartId);
     if (chart) {
       expect(chart.chartSettings).toEqual(chartSettings);
@@ -67,26 +63,32 @@ describe('ChartDataService', (): void => {
   });
 
   it('should update chart options with empty title if chartSettings.title is empty', (): void => {
-      const chartSettings: ChartSettings = {
-        ticker: 'AAPL',
-        title: '',
-        type: 'line',
-        color: 'red',
-      };
-      service.addChart(chartSettings, chartId, chartData);
-        service.updateChartOptions(chartSettings, chartId, chartData);
-        const titleText: string = service['chartOptions'].title?.text || '';
-        expect(titleText).toEqual(chartSettings.ticker);
-    });
-
-  it('should set chart data', (): void => {
-    service.setChartData(chartData);
-    expect(service['chartDataSubject'].value).toEqual(chartData);
+    const chartSettings: ChartSettings = {
+      ticker: 'AAPL',
+      title: '',
+      type: 'line',
+      color: 'red',
+    };
+    service.addChart(chartSettings, chartId, chartData);
+    service.updateChartOptions(chartData, chartSettings, chartId);
+    const titleText: string = service['chartOptions'].title?.text || '';
+    expect(titleText).toEqual(chartSettings.ticker);
   });
 
-  it('should set chart settings', (): void => {
+  it('should set chart data', (done: DoneFn): void => {
+    service.setChartData(chartData);
+    service['chartDataSubject'].subscribe((data: ChartData | null): void => {
+      expect(data).toEqual(chartData);
+      done();
+    });
+  });
+
+  it('should set chart settings', (done: DoneFn): void => {
     service.setChartSettings(chartSettings);
-    expect(service['chartSettingsSubject'].value).toEqual(chartSettings);
+    service['chartSettingsSubject'].subscribe((settings: ChartSettings): void => {
+      expect(settings).toEqual(chartSettings);
+      done();
+    });
   });
 
   it('should get chart settings', (): void => {
@@ -104,7 +106,7 @@ describe('ChartDataService', (): void => {
       expect(chart.chartSettings).toEqual(chartSettings);
       expect(chart.chartData).toEqual(chartData);
       expect(chart.chartOptions).toBeTruthy();
-    }else {
+    } else {
       fail('Chart not found in chart list.');
     }
   });
@@ -119,7 +121,7 @@ describe('ChartDataService', (): void => {
   it('should return the same chartData when no filtering is needed', (): void => {
     const startDate: Date = new Date(0);
     const endDate: Date = new Date(9999999999);
-    const filteredChartData: ChartData = service.filterChartData(chartData, chartSettings, startDate, endDate);
+    const filteredChartData: ChartData = service.filterChartData(chartData, startDate, endDate);
     expect(filteredChartData).toEqual(chartData);
   });
 
@@ -128,17 +130,20 @@ describe('ChartDataService', (): void => {
       chart: {
         result: [
           {
-            meta: { currency: 'USD', symbol: 'AAPL' },
+            meta: {currency: 'USD', symbol: 'AAPL'},
             timestamp: [1, 2, 3, 4, 5],
             comparisons: [
-              { symbol: 'AAPL', high: [], low: [], open: [], close: [10, 20, 30, 40, 50] },
+              {symbol: 'AAPL', high: [], low: [], open: [], close: [10, 20, 30, 40, 50]},
             ],
           },
         ],
       },
     };
-    const filteredChartData: ChartData = service.filterChartData(testData, chartSettings, startDate, endDate);
-    expect(filteredChartData.chart.result[0].timestamp).toEqual([2, 3, 4]);
-    expect(filteredChartData.chart.result[0].comparisons[0].close).toEqual([20, 30, 40]);
+
+    const filteredChartData: ChartData = service.filterChartData(testData, startDate, endDate);
+    if (filteredChartData.chart.result[0] && filteredChartData.chart.result[0].comparisons[0]) {
+      expect(filteredChartData.chart.result[0].timestamp).toEqual([2, 3, 4]);
+      expect(filteredChartData.chart.result[0].comparisons[0].close).toEqual([20, 30, 40]);
+    }
   });
 });

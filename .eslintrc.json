@@ -1,0 +1,200 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2024": true,
+    "jasmine": true,
+    "protractor": true
+  },
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "ecmaFeatures": {
+      "impliedStrict": true
+    }
+  },
+  "root": true,
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
+  "overrides": [
+    {
+      "files": [
+        "*.ts"
+      ],
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates"
+      ],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ]
+      }
+    },
+    {
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:@angular-eslint/template/accessibility"
+      ],
+      "rules": {
+        "array-bracket-spacing": [
+          2,
+          "always"
+        ],
+        "array-callback-return": 2,
+        "arrow-body-style": 2,
+        "arrow-parens": 2,
+        "arrow-spacing": 2,
+        "block-scoped-var": 2,
+        "block-spacing": 2,
+        "brace-style": 2,
+        "class-methods-use-this": 1,
+        "consistent-this": [
+          2,
+          "that"
+        ],
+        "consistent-return": 2,
+        "constructor-super": 2,
+        "curly": 2,
+        "default-case": 2,
+        "default-case-last": 2,
+        "default-param-last": 2,
+        "dot-notation": 2,
+        "eqeqeq": 2,
+        "for-direction": 2,
+        "func-call-spacing": [
+          2,
+          "always"
+        ],
+        "func-name-matching": 2,
+        "function-paren-newline": [
+          2,
+          {
+            "minItems": 4
+          }
+        ],
+        "getter-return": 2,
+        "grouped-accessor-pairs": 2,
+        "implicit-arrow-linebreak": [
+          2,
+          "beside"
+        ],
+        "keyword-spacing": [
+          2,
+          {
+            "before": true,
+            "after": true
+          }
+        ],
+        "new-cap": 2,
+        "newline-per-chained-call": 2,
+        "no-await-in-loop": 1,
+        "no-bitwise": 2,
+        "no-constant-binary-expression": 2,
+        "no-constructor-return": 1,
+        "no-empty": 1,
+        "no-empty-function": 1,
+        "no-empty-static-block": 1,
+        "no-extra-bind": 2,
+        "no-extra-label": 2,
+        "no-extra-parens": 2,
+        "no-implied-eval": 2,
+        "no-lone-blocks": 2,
+        "no-loop-func": 2,
+        "no-mixed-operators": 1,
+        "no-mixed-spaces-and-tabs": [
+          2,
+          "smart-tabs"
+        ],
+        "no-multi-assign": 2,
+        "no-multi-spaces": 2,
+        "no-new": 2,
+        "no-param-reassign": 2,
+        "no-trailing-spaces": 2,
+        "no-undef-init": 2,
+        "no-unmodified-loop-condition": 2,
+        "no-unused-expressions": 1,
+        "no-unused-vars": 1,
+        "no-unused-labels": 1,
+        "no-var": 2,
+        "object-curly-newline": [
+          2,
+          {
+            "ObjectExpression": "always",
+            "ObjectPattern": {
+              "multiline": true
+            },
+            "ImportDeclaration": "never",
+            "ExportDeclaration": {
+              "multiline": true,
+              "minProperties": 3
+            }
+          }
+        ],
+        "object-curly-spacing": [
+          2,
+          "always"
+        ],
+        "object-property-newline": 2,
+        "one-var-declaration-per-line": 2,
+        "padded-blocks": [
+          2,
+          "never"
+        ],
+        "prefer-const": 1,
+        "prefer-promise-reject-errors": 1,
+        "require-await": 1,
+        "semi": [
+          2,
+          "always"
+        ],
+        "semi-style": [
+          2,
+          "last"
+        ],
+        "sort-imports": 2,
+        "space-before-blocks": [
+          2,
+          "always"
+        ],
+        "space-before-function-paren": [
+          2,
+          "always"
+        ],
+        "space-in-parens": [
+          2,
+          "always"
+        ],
+        "space-unary-ops": 2,
+        "switch-colon-spacing": 2,
+        "template-curly-spacing": [
+          2,
+          "always"
+        ],
+        "wrap-iife": [
+          2,
+          "outside"
+        ],
+        "wrap-regex": 2
+      }
+    }
+  ]
+}

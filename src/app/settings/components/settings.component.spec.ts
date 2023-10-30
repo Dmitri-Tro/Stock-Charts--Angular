@@ -1,31 +1,30 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { FormBuilder } from "@angular/forms";
-import { of } from 'rxjs';
-import { SettingsComponent } from './settings.component';
-import { ChartDataService } from '../../services/chart-data-service/chart-data.service';
-import { ApiService } from '../../services/api-service/api.service';
-import { LoggerService } from '../../services/logger-service/logger.service';
-import { ChartData } from '../../interfaces/api.interface';
-import { ChartSettings } from "../../interfaces/chart-settings.interface";
-import { CreateNewChartComponent } from './create-new-chart/create-new-chart.component';
-import { ChartComponent } from "./chart/chart.component";
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {MatDialogModule, MatDialogRef, MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormBuilder} from "@angular/forms";
+import {of} from 'rxjs';
+import {SettingsComponent} from './settings.component';
+import {ChartDataService} from '../../services/chart-data-service/chart-data.service';
+import {ApiService} from '../../services/api-service/api.service';
+import {LoggerService} from '../../services/logger-service/logger.service';
+import {ChartData} from '../../interfaces/api.interface';
+import {ChartSettings} from "../../interfaces/chart-settings.interface";
+import {CreateNewChartComponent} from './create-new-chart/create-new-chart.component';
+import {ChartComponent} from "./chart/chart.component";
+import {ActivatedRoute, convertToParamMap, Router} from '@angular/router';
 
 describe('SettingsComponent', (): void => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
   let chartDataService: ChartDataService;
   let apiService: ApiService;
-  let httpTestingController: HttpTestingController;
   let chartSettings: ChartSettings;
   let mockDialog: MatDialog;
   let activatedRouteStub: Partial<ActivatedRoute>;
 
   beforeEach(waitForAsync((): void => {
     activatedRouteStub = {
-      paramMap: of(convertToParamMap({ id: '1' })),
+      paramMap: of(convertToParamMap({id: '1'})),
     };
     TestBed.configureTestingModule({
       declarations: [SettingsComponent, CreateNewChartComponent, ChartComponent],
@@ -39,7 +38,9 @@ describe('SettingsComponent', (): void => {
           provide: Router,
           useValue: {
             url: '/view-mode',
-            navigate: (): void => {}
+            navigate: (): void => {
+              //
+            }
           }
         },
         {
@@ -48,11 +49,15 @@ describe('SettingsComponent', (): void => {
         },
         {
           provide: MAT_DIALOG_DATA,
-          useValue: { chartSettings: chartSettings }
+          useValue: {chartSettings: chartSettings}
         },
         {
           provide: MatDialogRef,
-          useValue: { close: (): void => {} }
+          useValue: {
+            close: (): void => {
+              //
+            }
+          }
         },
       ],
     });
@@ -69,7 +74,6 @@ describe('SettingsComponent', (): void => {
     fixture.detectChanges();
     chartDataService = TestBed.inject(ChartDataService);
     apiService = TestBed.inject(ApiService);
-    httpTestingController = TestBed.inject(HttpTestingController);
     mockDialog = TestBed.inject(MatDialog);
   }));
 
@@ -96,7 +100,7 @@ describe('SettingsComponent', (): void => {
       position: {},
       autoFocus: false,
       data: {
-        chartSettings: { ...component.chartSettings },
+        chartSettings: {...component.chartSettings},
       }
     });
   });
@@ -106,7 +110,7 @@ describe('SettingsComponent', (): void => {
       chart: {
         result: [
           {
-            meta: { currency: 'USD', symbol: 'AAPL' },
+            meta: {currency: 'USD', symbol: 'AAPL'},
             timestamp: [1234567890, 1234567891, 1234567892],
             comparisons: [
               {

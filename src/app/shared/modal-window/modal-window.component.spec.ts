@@ -1,24 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { ModalWindowComponent } from './modal-window.component';
-import { ChartDataService } from '../../services/chart-data-service/chart-data.service';
-import { LoggerService } from '../../services/logger-service/logger.service';
-import { ChartSettings } from "../../interfaces/chart-settings.interface";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { MatRadioModule } from "@angular/material/radio";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {ModalWindowComponent} from './modal-window.component';
+import {ChartDataService} from '../../services/chart-data-service/chart-data.service';
+import {LoggerService} from '../../services/logger-service/logger.service';
+import {ChartSettings} from "../../interfaces/chart-settings.interface";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatRadioModule} from "@angular/material/radio";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {ChartItem} from "../../interfaces/chart.interface";
 
 describe('ModalWindowComponent', (): void => {
   let component: ModalWindowComponent;
   let fixture: ComponentFixture<ModalWindowComponent>;
-  let chartDataService: ChartDataService;
   let dialogRef: MatDialogRef<ModalWindowComponent>;
-  let loggerService: LoggerService;
-  let setChartSettingsSpy: jasmine.Spy;
 
   const testSettings: ChartSettings = {
     ticker: 'AAPL',
@@ -38,7 +35,7 @@ describe('ModalWindowComponent', (): void => {
       chart: {
         result: [
           {
-            meta: { currency: 'USD', symbol: 'AAPL' },
+            meta: {currency: 'USD', symbol: 'AAPL'},
             timestamp: [1234567890, 1234567891, 1234567892],
             comparisons: [
               {
@@ -94,10 +91,7 @@ describe('ModalWindowComponent', (): void => {
   beforeEach((): void => {
     fixture = TestBed.createComponent(ModalWindowComponent);
     component = fixture.componentInstance;
-    chartDataService = TestBed.inject(ChartDataService);
     dialogRef = TestBed.inject(MatDialogRef);
-    loggerService = TestBed.inject(LoggerService);
-    setChartSettingsSpy = spyOn(chartDataService, 'setChartSettings').and.callThrough();
     fixture.detectChanges();
   });
 
@@ -106,6 +100,7 @@ describe('ModalWindowComponent', (): void => {
   });
 
   it('should update ticker and title', (): void => {
+    const setChartSettingsSpy = spyOn(component['chartDataService'], 'setChartSettings');
     component.modalWindowForm.patchValue({
       ticker: chartToUpdate.chartSettings.ticker,
       title: chartToUpdate.chartSettings.title,
@@ -114,12 +109,7 @@ describe('ModalWindowComponent', (): void => {
     });
     component['chartDataService'].chartList = [chartToUpdate];
     component.saveChartSettings('chart1');
-    expect(component['chartDataService'].setChartSettings).toHaveBeenCalledWith({
-      ticker: 'AAPL',
-      title: 'Apple',
-      type: 'area',
-      color: 'red',
-    });
+    expect(setChartSettingsSpy).toHaveBeenCalledWith(testSettings);
   });
 
   it('should close the dialog', (): void => {

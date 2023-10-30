@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatDialogModule, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { HighchartsChartModule } from 'highcharts-angular';
-import { of } from 'rxjs';
-import { ChartComponent } from './chart.component';
-import { ChartDataService } from '../../../services/chart-data-service/chart-data.service';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {MatDialogModule, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {HighchartsChartModule} from 'highcharts-angular';
+import {of} from 'rxjs';
+import {ChartComponent} from './chart.component';
+import {ChartDataService} from '../../../services/chart-data-service/chart-data.service';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ChartSettingsComponent} from "./chart-settings/chart-settings.component";
 
 describe('ChartComponent', (): void => {
@@ -123,7 +123,7 @@ describe('ChartComponent', (): void => {
   });
 
   it('should open chart settings', (): void => {
-    const chartId: string = '1';
+    const chartId = '1';
     component.openChartSettings(chartId);
     expect(dialogSpy.open).toHaveBeenCalledWith(ChartSettingsComponent, {
       width: '400px',
@@ -132,13 +132,13 @@ describe('ChartComponent', (): void => {
       position: {},
       autoFocus: false,
       data: {
-        chartSettings: { ...component.chartSettings },
+        chartSettings: {...component.chartSettings},
       },
     });
   });
 
   it('should delete chart', (): void => {
-    const chartId: string = '1';
+    const chartId = '1';
     component.deleteChart(chartId);
     expect(chartDataService.deleteChart).toHaveBeenCalledWith(chartId);
   });

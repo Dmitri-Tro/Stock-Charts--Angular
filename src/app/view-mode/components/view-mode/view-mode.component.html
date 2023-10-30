@@ -5,9 +5,9 @@
              [matDatepicker]="startDatePicker"
              placeholder="Start Date"
              formControlName="startDate">
-      <mat-datepicker-toggle  matSuffix [for]="startDatePicker"
-                              [disabled]="endDatePickerOpen"
-                              (click)="startDatePickerOpen = true"></mat-datepicker-toggle>
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"
+                             [disabled]="endDatePickerOpen"
+                             (click)="startDatePickerOpen = true"></mat-datepicker-toggle>
       <mat-datepicker #startDatePicker
                       [panelClass]="startDatePickerOptions.panelClass"
                       [startView]="startDatePickerOptions.startView"

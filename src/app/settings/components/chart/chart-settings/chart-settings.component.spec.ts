@@ -1,7 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ChartSettingsComponent } from './chart-settings.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {ChartSettingsComponent} from './chart-settings.component';
 
 describe('ChartSettingsComponent', (): void => {
   let component: ChartSettingsComponent;
@@ -11,8 +11,8 @@ describe('ChartSettingsComponent', (): void => {
     TestBed.configureTestingModule({
       declarations: [ChartSettingsComponent],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        {provide: MatDialogRef, useValue: {}},
+        {provide: MAT_DIALOG_DATA, useValue: {}},
       ],
       imports: [HttpClientTestingModule],
     });

@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { HeaderComponent } from "./header/header.component";
-import { ViewModeComponent } from "./view-mode/components/view-mode/view-mode.component";
-import { SettingsComponent } from "./settings/components/settings.component";
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
+import {HeaderComponent} from "./header/header.component";
+import {ViewModeComponent} from "./view-mode/components/view-mode/view-mode.component";
+import {SettingsComponent} from "./settings/components/settings.component";
 
 const routes: Routes = [
   {

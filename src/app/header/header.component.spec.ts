@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HeaderComponent } from './header.component';
-import { Router } from '@angular/router';
-import { LoggerService } from '../services/logger-service/logger.service';
-import { ViewModeComponent } from "../view-mode/components/view-mode/view-mode.component";
-import { SettingsComponent } from "../settings/components/settings.component";
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HeaderComponent} from './header.component';
+import {Router} from '@angular/router';
+import {LoggerService} from '../services/logger-service/logger.service';
+import {ViewModeComponent} from "../view-mode/components/view-mode/view-mode.component";
+import {SettingsComponent} from "../settings/components/settings.component";
 
 describe('HeaderComponent', (): void => {
   let component: HeaderComponent;

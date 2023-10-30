@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-import { ApiService } from './api.service';
-import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
-import { ChartData } from '../../interfaces/api.interface';
-import { LoggerService } from '../logger-service/logger.service';
-import { HttpClientModule } from "@angular/common/http";
+import {TestBed} from '@angular/core/testing';
+import {ApiService} from './api.service';
+import {HttpClientTestingModule, HttpTestingController, TestRequest} from '@angular/common/http/testing';
+import {ChartData} from '../../interfaces/api.interface';
+import {LoggerService} from '../logger-service/logger.service';
+import {HttpClientModule} from "@angular/common/http";
 
 describe('ApiService', (): void => {
   let service: ApiService;
@@ -49,11 +49,11 @@ describe('ApiService', (): void => {
         ],
       },
     };
-    const ticker: string = 'AAPL';
+    const ticker = 'AAPL';
     service.getData(ticker).subscribe((data: ChartData): void => {
       expect(data).toEqual(fakeChartData);
     });
-    const expectedUrl: string = 'https://yfapi.net/v8/finance/chart/AAPL?comparisons=MSFT%2C%5EVIX&range=1mo&region=US&interval=1d&lang=en&events=div%2Csplit&modules=defaultKeyStatistics,assetProfile&symbol=AAPL';
+    const expectedUrl = 'https://yfapi.net/v8/finance/chart/AAPL?comparisons=MSFT%2C%5EVIX&range=1mo&region=US&interval=1d&lang=en&events=div%2Csplit';
     const req: TestRequest = httpTestingController.expectOne(expectedUrl);
     expect(req.request.method).toBe('GET');
     req.flush(fakeChartData);

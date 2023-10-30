@@ -1,18 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ViewModeComponent } from './view-mode.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ReactiveFormsModule } from '@angular/forms';
-import { ChartDataService } from '../../../services/chart-data-service/chart-data.service';
-import { ChartItem } from '../../../interfaces/chart.interface';
-import { ChartData } from '../../../interfaces/api.interface';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from "@angular/material/dialog";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { OverlayModule, ScrollStrategyOptions } from "@angular/cdk/overlay";
-import { HttpClientTestingModule } from "@angular/common/http/testing";
-import { ChartComponent } from "../../../settings/components/chart/chart.component";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatNativeDateModule } from "@angular/material/core";
-import { MatInputModule } from "@angular/material/input";
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ViewModeComponent} from './view-mode.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {ReactiveFormsModule} from '@angular/forms';
+import {ChartDataService} from '../../../services/chart-data-service/chart-data.service';
+import {ChartItem} from '../../../interfaces/chart.interface';
+import {ChartData} from '../../../interfaces/api.interface';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef} from "@angular/material/dialog";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {OverlayModule, ScrollStrategyOptions} from "@angular/cdk/overlay";
+import {HttpClientTestingModule} from "@angular/common/http/testing";
+import {ChartComponent} from "../../../settings/components/chart/chart.component";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatInputModule} from "@angular/material/input";
+import {ChartSettings} from "../../../interfaces/chart-settings.interface";
 
 describe('ViewModeComponent', (): void => {
   let component: ViewModeComponent;
@@ -23,7 +24,7 @@ describe('ViewModeComponent', (): void => {
     chart: {
       result: [
         {
-          meta: { currency: 'USD', symbol: 'AAPL' },
+          meta: {currency: 'USD', symbol: 'AAPL'},
           timestamp: [1234567890, 1234567891, 1234567892],
           comparisons: [
             {
@@ -38,7 +39,13 @@ describe('ViewModeComponent', (): void => {
       ],
     },
   };
-
+  const mockChartSettings: ChartSettings = {
+    ticker: "AAPL",
+    title: "Apple",
+    type: 'area',
+    color: 'red',
+  };
+  const mockChartId = "chart1"
   const mockChartItem: ChartItem = {
     chartId: 'chart1',
     chartSettings: {
@@ -68,8 +75,8 @@ describe('ViewModeComponent', (): void => {
       providers: [
         ChartDataService,
         MatDialog,
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        {provide: MatDialogRef, useValue: {}},
+        {provide: MAT_DIALOG_DATA, useValue: {}},
         ScrollStrategyOptions,
       ],
     }).compileComponents();
@@ -94,8 +101,8 @@ describe('ViewModeComponent', (): void => {
     const updateChartOptionsSpy = spyOn(chartDataService, 'updateChartOptions');
     const setChartDataSpy = spyOn(chartDataService, 'setChartData');
     component.applyDateFilter();
-    expect(filterChartDataSpy).toHaveBeenCalledWith(mockChartData, mockChartItem.chartSettings, new Date(2023, 0, 1), new Date(2023, 0, 4));
-    expect(updateChartOptionsSpy).toHaveBeenCalledWith(mockChartItem.chartSettings, mockChartItem.chartId, mockChartData);
+    expect(filterChartDataSpy).toHaveBeenCalledWith(mockChartData, new Date(2023, 0, 1), new Date(2023, 0, 4));
+    expect(updateChartOptionsSpy).toHaveBeenCalledWith(mockChartData, mockChartSettings, mockChartId);
     expect(setChartDataSpy).toHaveBeenCalledWith(mockChartData);
   });
 });

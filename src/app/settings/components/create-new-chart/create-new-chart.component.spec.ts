@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CreateNewChartComponent } from './create-new-chart.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MatDialogModule, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {CreateNewChartComponent} from './create-new-chart.component';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatRadioModule} from "@angular/material/radio";
@@ -25,8 +25,8 @@ describe('CreateNewChartComponent', (): void => {
         ReactiveFormsModule,
       ],
       providers: [
-        { provide: MAT_DIALOG_DATA, useValue: {} },
-        { provide: MatDialogRef, useValue: {} },
+        {provide: MAT_DIALOG_DATA, useValue: {}},
+        {provide: MatDialogRef, useValue: {}},
       ],
     });
     fixture = TestBed.createComponent(CreateNewChartComponent);
