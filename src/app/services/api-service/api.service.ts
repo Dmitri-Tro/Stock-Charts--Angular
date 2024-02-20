@@ -8,7 +8,7 @@ import {LoggerService} from "../logger-service/logger.service";
   providedIn: 'root'
 })
 export class ApiService {
-  private apiKey = 'xFtfenD6VB22ndrXd8jCS6s5NNkZUe5F3YJZ8db4';
+  private apiKey = 'o31F2jLjhn5YUpMnS0AxO9j42rdUpZxV1Utsqcqi';
 
   constructor(
     private http: HttpClient,
